@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Auto Doctor AI — مساعد عربي تعليمي لفهم أكواد أعطال السيارات وحفظ تقارير الفحص.">
+<title>Auto Doctor AI | مساعد تشخيص السيارات</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--panel2:#18263d;--line:#2b3c56;--text:#f1f5f9;--muted:#a9b8cc;--blue:#37b7e8;--green:#35c48d;--amber:#f5bd4f}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#0b1220,#111d32);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.7}
+header{padding:22px clamp(16px,4vw,48px);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--blue),#5277ff);display:grid;place-items:center;font-size:25px;color:#06111d;font-weight:bold}
+h1{font-size:clamp(21px,3vw,30px);margin:0}header p{margin:2px 0 0;color:var(--muted);font-size:13px}.pill{border:1px solid #31556a;color:#9ce6ff;border-radius:30px;padding:5px 12px;font-size:12px}
+main{max-width:1180px;margin:auto;padding:24px clamp(14px,3vw,32px) 44px}.notice{background:#332b18;border:1px solid #66512b;color:#ffe5a5;border-radius:12px;padding:12px 15px;margin-bottom:20px;font-size:13px}
+.grid{display:grid;grid-template-columns: minmax(0,1.1fr) minmax(300px,.9fr);gap:18px}.card{background:rgba(18,29,48,.95);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 12px 35px #0002}
+h2{font-size:19px;margin:0 0 14px}label{display:block;color:var(--muted);font-size:13px;margin-bottom:5px}input,select,textarea{width:100%;background:#0b1526;color:var(--text);border:1px solid #354761;border-radius:10px;padding:12px;font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--blue)}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{margin-bottom:12px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:8px}button{border:0;border-radius:10px;padding:11px 16px;font:inherit;font-weight:bold;cursor:pointer}.primary{background:var(--blue);color:#061522}.secondary{background:#23344c;color:var(--text);border:1px solid #405674}.success{background:var(--green);color:#062016}.result{margin-top:16px;display:none}.result.show{display:block}.code{font-size:25px;font-weight:bold;direction:ltr;display:inline-block;color:#7ee2ff}.tag{display:inline-block;border:1px solid #52637b;border-radius:30px;padding:2px 9px;font-size:11px;color:var(--muted);margin-right:7px}.muted{color:var(--muted);font-size:13px}.result h3{margin:12px 0 5px;font-size:15px}.result ul{margin:5px 0;padding-right:22px}.empty{color:var(--muted);padding:22px 0;text-align:center}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}.stat{background:#0b1526;border:1px solid var(--line);padding:13px;border-radius:12px}.stat b{font-size:22px;display:block}.stat span{font-size:12px;color:var(--muted)}.history-item{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:9px;background:#0b1526}.history-item strong{direction:ltr;display:inline-block;color:#7ee2ff}.history-item small{color:var(--muted);display:block}.history-item p{margin:4px 0;font-size:13px}.history-item button{padding:5px 9px;font-size:12px;margin-top:5px}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr 1fr}}@media(max-width:460px){.fields{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}.card{padding:15px}}
+@media print{body{background:white;color:#111}.no-print,header,.notice,.stats,.footer{display:none!important}main{padding:0}.grid{display:block}.card{background:white;color:#111;border:0;box-shadow:none;padding:0}.result{display:block!important;color:#111}.muted,label{color:#444}input,select,textarea{border:1px solid #aaa;color:#111;background:white}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">AD</div><div><h1>Auto Doctor AI</h1><p>مساعد تشخيص أعطال السيارات — النسخة التجريبية 2.0</p></div></div>
+  <span class="pill">الإصدار 2.0 · يعمل محليًا بدون اتصال بسيارة</span>
+</header>
+<main>
+<div class="notice">تنبيه: دي نسخة أولية للتعلم والبحث في مجموعة أكواد تجريبية فقط. لا تتصل بالسيارة ولا تؤكد سبب العطل تلقائيًا. لازم فني مختص يراجع التشخيص قبل أي إصلاح.</div>
+<div class="stats no-print">
+ <div class="stat"><b id="codeCount">0</b><span>أكواد في قاعدة البيانات</span></div>
+ <div class="stat"><b id="reportCount">0</b><span>تقارير محفوظة على الجهاز</span></div>
+ <div class="stat"><b>2.0</b><span>إصدار البرنامج</span></div>
+</div>
+<div class="grid">
+<section class="card">
+<h2>🔎 البحث عن كود عطل</h2>
+<div class="field"><label for="code">كود العطل (مثال P0300)</label><input id="code" placeholder="اكتب الكود مثل P0300" maxlength="8" dir="ltr" autocomplete="off"></div>
+<div class="actions no-print"><button class="primary" id="searchBtn">ابحث عن العطل</button><button class="secondary" id="examplesBtn">عرض الأكواد المتاحة</button></div>
+<div id="result" class="result"></div>
+<div id="examples" class="muted" style="margin-top:12px"></div>
+</section>
+<section class="card">
+<h2>🧾 إنشاء تقرير فحص</h2>
+<div class="fields">
+ <div class="field"><label for="make">ماركة السيارة</label><input id="make" placeholder="مثال: Toyota"></div>
+ <div class="field"><label for="model">الموديل</label><input id="model" placeholder="مثال: Corolla"></div>
+ <div class="field"><label for="year">سنة الصنع</label><input id="year" type="number" min="1950" max="2035" placeholder="2020"></div>
+ <div class="field"><label for="reportCode">كود العطل</label><input id="reportCode" placeholder="P0300" dir="ltr" maxlength="8"></div>
+</div>
+<div class="field"><label for="symptoms">الأعراض اللي لاحظها السائق</label><textarea id="symptoms" rows="2" placeholder="مثال: رعشة بالمحرك أو لمبة المحرك منورة"></textarea></div>
+<div class="field"><label for="notes">ملاحظات الفحص / النتيجة بعد مراجعة الفني</label><textarea id="notes" rows="2" placeholder="اكتب نتائج الفحص إن وجدت"></textarea></div>
+<div class="actions no-print"><button class="success" id="saveBtn">حفظ التقرير</button><button class="secondary" id="printBtn">طباعة / حفظ PDF</button></div>
+<p class="muted">التقارير بتتحفظ محليًا في نفس المتصفح على الجهاز ده فقط.</p>
+</section>
+</div>
+
+<section class="card" style="margin-top:18px">
+<h2>🧰 أدوات إضافية</h2>
+<div class="fields">
+<div><h3 style="margin-top:0">🧭 مساعد الأعراض الأولي</h3><p class="muted">اختار العرض لتظهر لك خطوات عامة وآمنة. دي احتمالات وليست تشخيصًا مؤكدًا.</p>
+<div class="field"><label for="symptomPick">العَرَض الأساسي</label><select id="symptomPick"><option value="">اختار العرض</option><option value="shake">رعشة أو تقطيع في المحرك</option><option value="start">العربية مش بتدور</option><option value="battery">ضعف كهرباء أو لمبة البطارية</option><option value="heat">ارتفاع حرارة المحرك</option><option value="power">ضعف سحب</option><option value="brake">مشكلة في الفرامل</option><option value="noise">صوت غير طبيعي</option></select></div>
+<button class="primary no-print" id="symptomBtn">اعرض خطوات آمنة</button><div id="symptomResult" class="result"></div></div>
+<div><h3 style="margin-top:0">💾 النسخ الاحتياطي للتقارير</h3><p class="muted">صدّر تقاريرك إلى ملف واحتفظ به، أو استورد نسخة قديمة. بياناتك لا تُرسل لأي مكان.</p><div class="actions no-print"><button class="secondary" id="exportBtn">تصدير نسخة احتياطية</button><button class="secondary" id="importBtn">استيراد نسخة احتياطية</button><input id="importFile" type="file" accept=".json,application/json" hidden></div><p class="muted">حذف بيانات المتصفح قد يحذف التقارير؛ احتفظ بنسخة احتياطية.</p></div>
+</div></section>
+
+<section class="card" style="margin-top:18px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><h2 style="margin:0">📚 تقارير الفحص المحفوظة</h2><button class="secondary no-print" id="clearBtn">مسح كل التقارير</button></div>
+<div id="history"><div class="empty">لسه مفيش تقارير محفوظة.</div></div>
+</section>
+<div class="footer">Auto Doctor AI · مشروع تعليمي قابل للتطوير · الإصدار 2.0 · لا يُستخدم وحده لاتخاذ قرارات إصلاح أو سلامة</div>
+</main>
+<script>
+const faults = {
+"P0300":{title:"اختلال احتراق عشوائي أو في أكثر من أسطوانة",meaning:"وحدة التحكم رصدت أن الاحتراق في المحرك غير منتظم في أسطوانة واحدة أو أكثر، لكن الكود وحده لا يحدد القطعة التالفة.",causes:["شمعات الإشعال أو ملفات الإشعال في محركات البنزين","مشكلة في توصيل الوقود أو ضغطه","تسريب هواء أو مشكلة ميكانيكية بالمحرك","أسباب أخرى حسب نوع المحرك والبيانات المصاحبة"],tests:["قراءة الأكواد الأخرى وبيانات Freeze Frame إن توفرت","فحص شمعات الإشعال والملفات وفق دليل السيارة","فحص تسريب الهواء والوقود بواسطة فني مختص"],severity:"يحتاج فحصًا قريبًا؛ لو لمبة المحرك بتومض أو المحرك بيهتز بشدة، أوقف القيادة واطلب مساعدة فنية."},
+"P0171":{title:"خليط الوقود والهواء فقير — البنك الأول",meaning:"تم رصد هواء زائد أو وقود أقل من المطلوب وفق استراتيجية مراقبة المحرك. السبب يحتاج اختبارات، وليس الكود وحده.",causes:["تسريب هواء في مجرى السحب","قراءة غير دقيقة من حساس تدفق الهواء في بعض السيارات","مشكلة في ضغط أو توصيل الوقود","تسريب عادم قبل حساس الأكسجين في بعض الحالات"],tests:["فحص خراطيم السحب والتسريبات","مراجعة قراءات الحساسات وتصحيحات الوقود","اختبار ضغط الوقود حسب دليل السيارة"],severity:"يحتاج فحصًا؛ لا تستبدل أي حساس قبل تأكيد السبب."},
+"P0420":{title:"كفاءة نظام المحفز أقل من الحد المتوقع — البنك الأول",meaning:"النظام رصد أداءً أقل من المتوقع في مراقبة المحفز الحفاز. لا يعني ذلك تلقائيًا أن المحفز هو السبب الوحيد.",causes:["تدهور كفاءة المحفز الحفاز","تسريب في العادم","مشكلة في حساس أكسجين أو توصيلاته","وجود أعطال أخرى تؤثر في الاحتراق"],tests:["فحص الأكواد الأخرى وإصلاحها أولًا","فحص تسريبات العادم","مراجعة بيانات حساسات الأكسجين وفق مواصفات السيارة"],severity:"يحتاج تشخيصًا منظمًا قبل شراء قطع غيار."},
+"P0128":{title:"درجة حرارة سائل التبريد أقل من المتوقع للوصول لدرجة التشغيل",meaning:"قد تكون حرارة المحرك أقل من المتوقع خلال ظروف تشغيل معينة؛ التفسير يعتمد على تصميم السيارة وبياناتها.",causes:["ثرموستات عالق في وضع الفتح","حساس حرارة سائل التبريد أو التوصيلات","مستوى سائل تبريد غير صحيح أو ظروف تشغيل خاصة"],tests:["مراجعة مستوى سائل التبريد والمحرك بارد فقط","مقارنة قراءة حرارة المحرك بالحرارة المحيطة عند بداية التشغيل","فحص الثرموستات والحساس حسب دليل الصيانة"],severity:"لا تفتح غطاء نظام التبريد والمحرك ساخن."},
+"P0455":{title:"اكتشاف تسريب كبير في نظام أبخرة الوقود",meaning:"النظام رصد تسريبًا كبيرًا أو عدم القدرة على إحكام نظام أبخرة الوقود، وقد تختلف آلية الرصد حسب السيارة.",causes:["غطاء خزان الوقود غير محكم أو تالف","خرطوم أو وصلة في نظام الأبخرة بها تسريب","مشكلة في صمام أو مكونات نظام EVAP"],tests:["التأكد من غطاء الوقود وسلامة جلدة الغطاء","فحص الخراطيم والوصلات","قد يحتاج الفني لاختبار دخان مخصص للنظام"],severity:"غالبًا يحتاج فحصًا؛ تجنب مصادر النار قرب الوقود."},
+"P0442":{title:"اكتشاف تسريب صغير في نظام أبخرة الوقود",meaning:"تم رصد تسريب صغير محتمل في نظام التحكم في أبخرة الوقود، وتحتاج النتيجة لتأكيد.",causes:["غطاء خزان الوقود أو جلدة الغطاء","خراطيم أو وصلات نظام EVAP","صمام تطهير أو تهوية معيب"],tests:["فحص غطاء الخزان والجلدة","فحص الخراطيم والوصلات","اختبار تسريب مناسب عند الحاجة"],severity:"يحتاج فحصًا قبل تغيير أي قطعة."},
+"P0135":{title:"خلل في دائرة سخان حساس الأكسجين — حساس 1 البنك الأول",meaning:"تم رصد مشكلة في الدائرة الكهربائية الخاصة بسخان حساس الأكسجين وفق تعريف السيارة.",causes:["عطل في سخان الحساس","فيوز أو توصيلات كهربائية","قطع أو مقاومة غير طبيعية في الضفيرة","خلل في دائرة التحكم حسب تصميم السيارة"],tests:["تحديد موقع الحساس الصحيح حسب دليل السيارة","فحص الفيوز والتوصيلات","قياس الدائرة وفق إجراء الصيانة المعتمد"],severity:"يتطلب فحصًا كهربائيًا قبل استبدال الحساس."},
+"P0301":{title:"اختلال احتراق في الأسطوانة رقم 1",meaning:"تم رصد اختلال احتراق مرتبط بالأسطوانة رقم 1؛ موقع الأسطوانة يختلف حسب تصميم المحرك.",causes:["شمعة أو ملف إشعال في محركات البنزين","حاقن وقود أو توصيل الوقود","ضغط ميكانيكي غير طبيعي","توصيلات أو أسباب أخرى بحسب المحرك"],tests:["مراجعة الأكواد المصاحبة","فحص الإشعال والوقود وفق دليل السيارة","اختبار الضغط عند الحاجة بواسطة فني"],severity:"إذا كانت لمبة المحرك تومض أو يوجد اهتزاز شديد، أوقف القيادة واطلب فحصًا."}
+};
+const $=id=>document.getElementById(id);
+function safe(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function search(){let code=$("code").value.trim().toUpperCase().replace(/\s/g,"");$("result").classList.add("show");if(!code){$("result").innerHTML='<p class="muted">اكتب كود العطل الأول، مثال P0300.</p>';return}const f=faults[code];if(!f){$("result").innerHTML=`<div class="code">${safe(code)}</div><p><b>الكود غير موجود في قاعدة البيانات التجريبية.</b></p><p class="muted">ده لا يعني إن الكود غير صحيح. أضف بيانات موثوقة خاصة به بعد التحقق من دليل السيارة ومصدر فني.</p>`;return}
+$("result").innerHTML=`<div><span class="code">${safe(code)}</span><span class="tag">معلومات تعليمية</span></div><h3>المعنى</h3><p>${safe(f.title)}</p><p class="muted">${safe(f.meaning)}</p><h3>أسباب محتملة — ليست تأكيدًا</h3><ul>${f.causes.map(x=>`<li>${safe(x)}</li>`).join("")}</ul><h3>خطوات فحص مقترحة</h3><ul>${f.tests.map(x=>`<li>${safe(x)}</li>`).join("")}</ul><h3>تنبيه</h3><p>${safe(f.severity)}</p><p class="muted">تحقق من انطباق تعريف الكود على سنة الصنع والماركة والمحرك. لا تعتمد على هذه الصفحة وحدها للإصلاح.</p>`;
+}
+$("searchBtn").onclick=search;
+$("code").addEventListener("keydown",e=>{if(e.key==="Enter")search()});
+$("examplesBtn").onclick=()=>{$("examples").innerHTML="<b>الأكواد الموجودة حاليًا:</b> "+Object.keys(faults).map(c=>`<button class="secondary" style="margin:4px;padding:5px 9px" onclick="document.getElementById('code').value='${c}';document.getElementById('searchBtn').click()">${c}</button>`).join("");};
+function getReports(){try{return JSON.parse(localStorage.getItem("autoDoctorReports")||"[]")}catch{return []}}
+function setReports(r){localStorage.setItem("autoDoctorReports",JSON.stringify(r))}
+function renderReports(){const r=getReports();$("reportCount").textContent=r.length;$("history").innerHTML=r.length?r.slice().reverse().map((x,i)=>`<div class="history-item"><strong>${safe(x.code||"بدون كود")}</strong> · ${safe(x.make||"ماركة غير محددة")} ${safe(x.model||"")} ${safe(x.year||"")}<small>${safe(x.date)}</small><p><b>الأعراض:</b> ${safe(x.symptoms||"لم تُسجل")}</p><p><b>ملاحظات الفني:</b> ${safe(x.notes||"لم تُسجل")}</p><button class="secondary no-print" onclick="printOne(${r.length-1-i})">طباعة التقرير</button> <button class="secondary no-print" onclick="deleteOne(${r.length-1-i})">حذف</button></div>`).join(""):'<div class="empty">لسه مفيش تقارير محفوظة.</div>'}
+function printOne(index){const r=getReports()[index];if(!r)return;const w=window.open("","_blank");if(!w){alert("اسمح بفتح نافذة الطباعة من المتصفح.");return}w.document.write(`<html lang="ar" dir="rtl"><meta charset="utf-8"><title>تقرير Auto Doctor AI</title><body style="font-family:Tahoma,Arial;padding:30px;line-height:1.9"><h1>Auto Doctor AI — تقرير فحص</h1><hr><p><b>التاريخ:</b> ${safe(r.date)}</p><p><b>السيارة:</b> ${safe(r.make)} ${safe(r.model)} — ${safe(r.year)}</p><p><b>كود العطل:</b> ${safe(r.code)}</p><p><b>الأعراض:</b> ${safe(r.symptoms)}</p><p><b>ملاحظات الفحص:</b> ${safe(r.notes)}</p><hr><p>هذا التقرير سجل معلومات وليس تشخيصًا نهائيًا. يلزم تأكيد فني مؤهل.</p><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()}
+function deleteOne(i){if(confirm("تحذف التقرير ده؟")){const r=getReports();r.splice(i,1);setReports(r);renderReports()}}
+$("saveBtn").onclick=()=>{const x={make:$("make").value.trim(),model:$("model").value.trim(),year:$("year").value.trim(),code:$("reportCode").value.trim().toUpperCase(),symptoms:$("symptoms").value.trim(),notes:$("notes").value.trim(),date:new Date().toLocaleString("ar-EG")};if(!x.make&&!x.model&&!x.code&&!x.symptoms&&!x.notes){alert("اكتب بيانات واحدة على الأقل قبل الحفظ.");return}const r=getReports();r.push(x);setReports(r);renderReports();alert("تم حفظ التقرير على هذا الجهاز.");};
+$("printBtn").onclick=()=>window.print();
+$("clearBtn").onclick=()=>{if(confirm("متأكد إنك عاوز تمسح كل التقارير المحفوظة؟")){setReports([]);renderReports()}};
+
+const symptomGuides={
+shake:{title:'رعشة أو تقطيع في المحرك',items:['لاحظ هل لمبة المحرك ثابتة أم بتومض.','لو اللمبة بتومض أو الرعشة شديدة، أوقف القيادة واطلب مساعدة فنية.','قد يفحص الفني الإشعال والوقود والتسريبات حسب نوع المحرك.'],warning:'ما تغيّرش قطع اعتمادًا على العرض وحده.'},
+start:{title:'العربية مش بتدور',items:['لاحظ هل العدادات بتنور وهل تسمع تكتكة.','افحص بصريًا أطراف البطارية فقط إذا كان ذلك آمنًا.','اطلب اختبار البطارية ودائرة التشغيل إذا استمرت المشكلة.'],warning:'تجنب توصيل أسلاك عشوائيًا أو تجربة اشتراك بطارية دون معرفة الإجراء الصحيح.'},
+battery:{title:'ضعف كهرباء أو لمبة البطارية',items:['قد يكون هناك خلل في البطارية أو نظام الشحن أو التوصيلات.','إذا ظهر ضعف متزايد، توقف في مكان آمن.','اطلب اختبار البطارية والشحن بجهاز مناسب.'],warning:'لا تفصل قطب البطارية والمحرك يعمل.'},
+heat:{title:'ارتفاع حرارة المحرك',items:['قف في مكان آمن وأطفئ المحرك إذا ارتفعت الحرارة.','انتظر حتى يبرد تمامًا قبل أي فحص بصري.','اطلب فحص التسريب والمروحة والثرموستات عند فني.'],warning:'لا تفتح غطاء الردياتير أو قربة الضغط والمحرك ساخن؛ خطر الحروق.'},
+power:{title:'ضعف سحب',items:['لاحظ هل المشكلة ظهرت فجأة وهل توجد لمبات تحذير.','سجّل الأكواد إن كان لديك جهاز فحص متوافق.','اطلب فحص الهواء والوقود والإشعال وناقل الحركة حسب السيارة.'],warning:'تجنب الضغط على المحرك أو التجاوزات الخطرة حتى يتحدد السبب.'},
+brake:{title:'مشكلة في الفرامل',items:['لو الفرامل ضعيفة أو الدواسة غير طبيعية، لا تقد السيارة.','اطلب نقل السيارة لمركز صيانة بدل تجربة القيادة.','اذكر للفني الأصوات ولمبات التحذير.'],warning:'الفرامل مرتبطة بالسلامة؛ لا تعتمد على البرنامج لتقرير أن السيارة آمنة.'},
+noise:{title:'صوت غير طبيعي',items:['حدد متى يظهر الصوت: عند التشغيل أو الفرملة أو اللف.','لو معه دخان أو حرارة أو لمبة زيت، أوقف المحرك بأمان.','سجّل ظروف ظهور الصوت واطلب فحصًا فنيًا.'],warning:'لا تقترب من السيور أو المراوح أثناء دوران المحرك.'}
+};
+$('symptomBtn').onclick=()=>{const key=$('symptomPick').value,box=$('symptomResult');box.classList.add('show');if(!key){box.innerHTML='<p class="muted">اختار العرض الأول.</p>';return;}const g=symptomGuides[key];box.innerHTML=`<h3>${safe(g.title)}</h3><ul>${g.items.map(x=>`<li>${safe(x)}</li>`).join('')}</ul><p><b>تنبيه سلامة:</b> ${safe(g.warning)}</p><p class="muted">المعلومات عامة ولا تغني عن فني مؤهل أو دليل السيارة.</p>`;};
+$('exportBtn').onclick=()=>{const payload={app:'Auto Doctor AI',version:'2.0',exportedAt:new Date().toISOString(),reports:getReports()};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='Auto_Doctor_AI_Backup.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);};
+$('importBtn').onclick=()=> $('importFile').click();
+$('importFile').onchange=async e=>{const file=e.target.files&&e.target.files[0];if(!file)return;try{const data=JSON.parse(await file.text());if(!data||!Array.isArray(data.reports)||!data.reports.every(x=>x&&typeof x==='object'))throw new Error('invalid');setReports(getReports().concat(data.reports));renderReports();alert('تم استيراد التقارير بنجاح.');}catch(err){alert('الملف مش نسخة احتياطية صالحة من Auto Doctor AI.');}e.target.value='';};
+
+$("codeCount").textContent=Object.keys(faults).length;renderReports();
+</script>
+</body></html>
