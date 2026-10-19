@@ -1,14 +1,17 @@
 {
-  "background_color": "#ffffff",
-  "description": "Auto Doctor AI — مساعد عربي تعليمي لفهم أكواد أعطال السيارات وحفظ تقارير الفحص.",
-  "dir": "ltr",
-  "display": "standalone",
-  "name": "Auto Doctor AI",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "Atuo Doctor",
-  "start_url": "/",
+  "short_name": "AutoDoctor",
+  "name": "Auto Doctor AI - مساعد تشخيص السيارات",
+  "icons": [
+    {
+      "src": "launchericon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#0b1220",
   "theme_color": "#0b1220",
-  "id": "auto_doctor_ai",
-  "lang": "ar"
+  "display": "standalone",
+  "orientation": "portrait"
 }
